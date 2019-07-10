@@ -1,6 +1,5 @@
 import os
 import time
-from os import path
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -9,19 +8,22 @@ from selenium.webdriver.chrome.options import Options
 
 print('>Initializing')
 
+print('Loading', end='')
+
 # use chrome and load Profile 1 user's settings
 chrome_options = Options()
 chrome_options.add_argument("--headless")
 
 # path to chromedriver
-chromedriver = "C:\\Users\\ASUS\\PycharmProjects\\chromedriver"
+chromedriver = os.path.dirname(__file__) + "/chromedriver"
 
+print('.', end='')
 os.environ["webdriver.chrome.driver"] = chromedriver
 
 # idk, init?
+print('.', end='')
 driver = webdriver.Chrome(chromedriver, options=chrome_options)
-
-print('Loading...Please Wait.')
+print('.\n')
 
 # open this URL
 driver.get("https://en.wikipedia.org/wiki/Main_Page")
@@ -64,7 +66,6 @@ try:
     while choice < 0 or choice > i:
         choice = input('Enter Your Choice: ')
 
-
     print('\nOpening ' + title_list[choice] + ' in Wikipedia...')
 
     # open selected page
@@ -74,9 +75,7 @@ try:
     body = driver.find_element_by_xpath('/html/body/div[3]/div[3]/div[4]/div')
     para = body.find_elements_by_tag_name('p')
 
-
     print('\nDownloading all textual content...')
-
 
     # copy all body content
     buff = ''
